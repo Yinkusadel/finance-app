@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1744664436815,
+      "tag": "0000_omniscient_speedball",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1744666406587,
+      "tag": "0001_nostalgic_synch",
+      "breakpoints": true
+    }
+  ]
+}
