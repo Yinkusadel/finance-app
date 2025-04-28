@@ -26,6 +26,8 @@ import {
 
 import { Button } from "./ui/button"
 import { Input } from "@/components/ui/input"
+import useConfirm from "@/hooks/use-confirm";
+
 import { Trash } from "lucide-react"
 
 interface DataTableProps<TData, TValue> {
@@ -43,6 +45,11 @@ export function DataTable<TData, TValue>({
   onDelete,
   disabled,
 }: DataTableProps<TData, TValue>) {
+
+  const [ConfirmnDialog, confirm] = useConfirm(
+    "Are you sure",
+    "You are about to perform a bulk delete"
+  );
 
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -69,13 +76,15 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
+      <ConfirmnDialog />
       <div className="flex items-center py-4">
         <Input
           placeholder={`Filter ${filterKey}...`}
           value={(table.getColumn(filterKey)?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn(filterKey)?.setFilterValue(event.target.value)
           }
+
           className="max-w-sm"
         />
 
@@ -85,14 +94,14 @@ export function DataTable<TData, TValue>({
             size="sm"
             variant="outline"
             className="ml-auto font-normal text-xs"
-          // onClick={async () => {
-          //   const ok = await confirm();
+            onClick={async () => {
+              const ok = await confirm();
 
-          //   if (ok) {
-          //     onDelete(table.getFilteredSelectedRowModel().rows);
-          //     table.resetRowSelection();
-          //   }
-          // }}
+              if (ok) {
+                onDelete(table.getFilteredSelectedRowModel().rows);
+                table.resetRowSelection();
+              }
+            }}
           >
             <Trash className="size-4 mr-2" />
             Delete ({table.getFilteredSelectedRowModel().rows.length})
