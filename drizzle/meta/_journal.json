@@ -15,6 +15,13 @@
       "when": 1744666406587,
       "tag": "0001_nostalgic_synch",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1746508853618,
+      "tag": "0002_absent_husk",
+      "breakpoints": true
     }
   ]
 }
