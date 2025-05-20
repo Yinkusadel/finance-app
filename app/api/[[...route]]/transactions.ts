@@ -172,7 +172,7 @@ const app = new Hono()
     }
   )
   .post(
-    "/bulk-delete",
+    "/bulk-delete", 
     clerkMiddleware(),
     zValidator(
       "json",
