@@ -1,15 +1,18 @@
+
 import { create } from "zustand";
 
-type NewTransactionState = {
+type OpenTransactionState = {
+  id?: string;
   isOpen: boolean;
-  onOpen: () => void;
+  onOpen: (id: string) => void;
   onClose: () => void;
 };
 
-const useNewTransaction = create<NewTransactionState>((set) => ({
+const useOpenTransaction = create<OpenTransactionState>((set) => ({
+  id: undefined,
   isOpen: false,
-  onOpen: () => set({ isOpen: true }),
-  onClose: () => set({ isOpen: false }),
+  onOpen: (id: string) => set({ isOpen: true, id }),
+  onClose: () => set({ isOpen: false, id: undefined }),
 }));
 
-export default useNewTransaction;
+export default useOpenTransaction;

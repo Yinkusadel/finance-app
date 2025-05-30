@@ -13,7 +13,7 @@ import { useGetAccount } from "../api/use-get-account";
 import { Loader2 } from "lucide-react";
 import { useEditAccount } from "../api/use-edit-account";
 import { useDeleteAccount } from "../api/use-delete-account";
-import useConfirm from "@/hooks/use-confirm";
+import useConfirm from "../../../../codetratives/ecommerce--new/src/hooks/use-confirm";
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

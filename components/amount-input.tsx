@@ -29,7 +29,11 @@ export const AmountInput = ({
     if (!value) return;
     const newValue = parseFloat(value) * -1
     onChange(newValue.toString());
+
+    
   };
+
+  
   return (
     <div className="relative">
       <TooltipProvider>

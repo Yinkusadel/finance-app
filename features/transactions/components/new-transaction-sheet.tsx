@@ -5,7 +5,6 @@ import {
     SheetHeader,
     SheetTitle,
 } from "@/components/ui/sheet";
-import useNewTransaction from "../hooks/use-open-transaction";
 import { useCreateTransaction } from "../api/use-create-transaction";
 import { useGetCategories } from "@/features/categories/api/use-get-categories";
 import { useCreateCategory } from "@/features/categories/api/use-create-category";
@@ -17,6 +16,7 @@ import { Loader2 } from "lucide-react";
 import { insertTransactionSchema } from "@/db/schema";
 import { z } from "zod";
 import { TransactionForm } from "./transaction-form";
+import useNewTransaction from "../hooks/use-new-transaction";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const formSchema = insertTransactionSchema.omit({

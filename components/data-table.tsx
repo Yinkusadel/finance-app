@@ -26,7 +26,7 @@ import {
 
 import { Button } from "./ui/button"
 import { Input } from "@/components/ui/input"
-import useConfirm from "@/hooks/use-confirm";
+import useConfirm from "../../codetratives/ecommerce--new/src/hooks/use-confirm";
 
 import { Trash } from "lucide-react"
 
