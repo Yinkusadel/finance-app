@@ -1,5 +1,6 @@
 
 "use client";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,13 +12,40 @@ import { useGetTransactions } from "@/features/transactions/api/use-get-transact
 import { useBulkDeleteTransactions } from "@/features/transactions/api/use-bulk-delete-transactions";
 import { columns } from "./columns";
 import useNewTransaction from "@/features/transactions/hooks/use-new-transaction";
+import UploadButton from "./upload-button";
+import ImportCard from "./import-card";
+
+enum VARIANT {
+  LIST = "LIST",
+  IMPORT = "IMPORT",
+}
+
+const INITIAL_IMPORT_RESULTS = {
+  data: [],
+  error: [],
+  meta: {},
+};
+
+const TransactionsPage = () => {
 
 
-const TransactionsPage  = () => {
-    const newTransaction = useNewTransaction();
-    const deleteTransaction = useBulkDeleteTransactions();
-      const transactionsQuery = useGetTransactions();
-      const transactions = transactionsQuery.data || [];
+  const [variant, setVariant] = useState<VARIANT>(VARIANT.LIST);
+  const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS);
+
+  const onUpload = (results: typeof INITIAL_IMPORT_RESULTS) => {
+    setVariant(VARIANT.IMPORT);
+    setImportResults(results);
+  };
+
+  const onCancelUpload = () => {
+    setVariant(VARIANT.LIST);
+    setImportResults(INITIAL_IMPORT_RESULTS);
+  };
+
+  const newTransaction = useNewTransaction();
+  const deleteTransaction = useBulkDeleteTransactions();
+  const transactionsQuery = useGetTransactions();
+  const transactions = transactionsQuery.data || [];
 
   const isDisabled = transactionsQuery.isLoading || deleteTransaction.isPending
 
@@ -38,15 +66,36 @@ const TransactionsPage  = () => {
     );
   }
 
+  if (variant === VARIANT.IMPORT) {
+    return (
+      <>
+        {/* <AccountDialog /> */}
+        <ImportCard
+          data={importResults.data}
+          onCancel={onCancelUpload}
+          // onSubmit={onSubmitImport}
+          onSubmit={() => {}}
+        />
+      </>
+    );
+  }
+
   return (
     <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
       <Card className="border-none drop-shadow-sm">
         <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
-          <CardTitle className="text-xl line-clamp-1">Transaction page</CardTitle>
-          <Button onClick={newTransaction.onOpen} size="sm">
-            <Plus className="size-4 mr-2" />
-            Add new
-          </Button>
+          <CardTitle className="text-xl line-clamp-1">Transaction History</CardTitle>
+          <div className="flex flex-col lg:flex-row items-center gap-x-2 gap-y-2">
+            <Button
+              size={"sm"}
+              onClick={newTransaction.onOpen}
+              className="w-full lg:w-auto"
+            >
+              <Plus className="mr-2 size-4" />
+              Add new
+            </Button>
+            <UploadButton onUpload={onUpload} />
+          </div>
         </CardHeader>
         <CardContent>
           <DataTable
