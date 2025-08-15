@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useDeleteTransaction } from "@/features/transactions/api/use-delete-transaction";
 import useOpenTransaction from "@/features/transactions/hooks/use-open-transaction";
-import useConfirm from "../../../../codetratives/ecommerce--new/src/hooks/use-confirm";
+import useConfirm from "@/hooks/use-confirm";
 
 export const Actions = ({ id }: { id: string }) => {
   const deleteMutation = useDeleteTransaction(id);
