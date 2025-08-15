@@ -1,24 +1,22 @@
 import { Button } from "@/components/ui/button";
-import {   Dialog,
+import {
+  Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
- } from "@/components/ui/dialog";
+} from "@/components/ui/dialog";
 import { useState } from "react";
-
 
 const useConfirm = (
   title: string,
   message: string
-): [() => React.ReactNode, () => Promise<unknown>] => {
-  const [promise, setPromise] = useState<{
-    resolve: (value: boolean) => void;
-  } | null>(null);
+): [() => React.ReactNode, () => Promise<boolean>] => {
+  const [promise, setPromise] = useState<{ resolve: (value: boolean) => void } | null>(null);
 
   const confirm = () =>
-    new Promise((resolve) => {
+    new Promise<boolean>((resolve) => {
       setPromise({ resolve });
     });
 
@@ -37,7 +35,7 @@ const useConfirm = (
   };
 
   const ConfirmationDialog = () => (
-    <Dialog open={promise !== null}>
+    <Dialog open={promise !== null} onOpenChange={(open) => !open && handleCancel()}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
@@ -55,7 +53,7 @@ const useConfirm = (
     </Dialog>
   );
 
-  return [ConfirmationDialog, confirm]
+  return [ConfirmationDialog, confirm];
 };
 
 export default useConfirm;
