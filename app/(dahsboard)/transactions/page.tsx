@@ -1,6 +1,6 @@
 
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -121,16 +121,18 @@ const TransactionsPage = () => {
           </div>
         </CardHeader>
         <CardContent>
-          <DataTable
-            columns={columns}
-            data={transactions}
-            filterKey="payee"
-            onDelete={(row) => {
-              const ids = row.map((r) => r.original.id)
-              deleteTransaction.mutate({ ids })
-            }}
-            disabled={isDisabled}
-          />
+          <Suspense fallback={<div>Loading table...</div>}>
+            <DataTable
+              columns={columns}
+              data={transactions}
+              filterKey="payee"
+              onDelete={(row) => {
+                const ids = row.map((r) => r.original.id);
+                deleteTransaction.mutate({ ids });
+              }}
+              disabled={isDisabled}
+            />
+          </Suspense>
         </CardContent>
       </Card>
     </div>
