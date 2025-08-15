@@ -19,9 +19,9 @@ import { useCreateCategory } from "@/features/categories/api/use-create-category
 import useOpenTransaction from "../hooks/use-open-transaction";
 import { useCreateAccount } from "@/features/accounts/api/use-create-account";
 import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
-import useConfirm from "../../../../codetratives/ecommerce--new/src/hooks/use-confirm";
 import { insertTransactionSchema } from "@/db/schema";
 import { z } from "zod";
+import useConfirm from "@/hooks/use-confirm";
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
