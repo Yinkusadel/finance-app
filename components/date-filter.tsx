@@ -76,7 +76,7 @@ const DateFilter = () => {
             <PopoverContent className="lg:w-auto w-full p-0" align="start">
                 <Calendar
                     disabled={false}
-                    initialFocus
+                    autoFocus
                     mode="range"
                     defaultMonth={date?.from}
                     selected={date}
@@ -88,7 +88,7 @@ const DateFilter = () => {
                         <Button
                             disabled={!date?.from || !date?.to}
                             onClick={onReset}
-                            className="w-full"
+                            className="flex-1 shrink min-w-0"
                             variant="outline"
                         >
                             Reset
@@ -98,7 +98,7 @@ const DateFilter = () => {
                         <Button
                             disabled={!date?.from || !date?.to}
                             onClick={() => pushToUrl(date)}
-                            className="w-full"
+                            className="flex-1 shrink min-w-0"
                         >
                             Apply
                         </Button>
